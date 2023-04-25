@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.commons.mapper.RolePermissionMapper">
+
+    <resultMap id="BaseResultMap" type="com.commons.domain.RolePermission">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="rid" column="roleId" jdbcType="BIGINT"/>
+        <result property="pid" column="permissionId" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,roleId,permissionId
+    </sql>
+
+    <select id="listAllByPermissionId" resultType="java.lang.Long">
+        select rid
+        from role_permission
+        where pid = #{pid}
+    </select>
+
+</mapper>
