@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="BUILD_PROCESS_HEAP_SIZE" value="2048" />
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="favorites-service" />
+        <module name="auth-service" />
+        <module name="commons" />
+        <module name="gateway-service" />
+        <module name="gateway" />
+        <module name="media-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8">
+      <module name="bookmark-server" target="8" />
+      <module name="gateway" target="8" />
+      <module name="login-service" target="8" />
+      <module name="resource-service" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="auth-service" options="-parameters" />
+      <module name="bookmark-server" options="-parameters" />
+      <module name="commons" options="-parameters" />
+      <module name="favorites-service" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="gateway-service" options="-parameters" />
+      <module name="login-service" options="-parameters" />
+      <module name="media-service" options="-parameters" />
+      <module name="myzone-api" options="-parameters" />
+      <module name="resource-service" options="-parameters" />
+    </option>
+  </component>
+</project>

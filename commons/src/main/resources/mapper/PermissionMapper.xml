@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.commons.mapper.PermissionMapper">
+
+    <resultMap id="BaseResultMap" type="com.commons.domain.Permission">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,description,url
+    </sql>
+    <select id="listPermissionsByUsername" resultType="com.commons.domain.Permission">
+        select p.*
+        from permission p
+        where p.id in (select rp.pid
+                       from role_permission rp
+                       where rp.rid in (select ur.rid
+                                        from user_role ur
+                                        where ur.uid in (select u.id from user u where u.username = #{username})))
+    </select>
+</mapper>

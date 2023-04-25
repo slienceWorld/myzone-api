@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.favorites.mapper.WebsiteMapper">
+
+    <resultMap id="BaseResultMap" type="com.favorites.entity.Website">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        id,url,title,
+        type
+    </sql>
+
+
+    <select id="getByPage" resultType="com.favorites.entity.Website">
+        select w.id, url, title, type
+        from website w
+        order by w.id
+        limit #{pageBegin},#{pageSize}
+    </select>
+
+    <select id="getByTags" resultType="com.favorites.entity.Website">
+        SELECT w.id,w.title,w.url
+        FROM (
+        SELECT w.id
+        FROM website w
+        JOIN website_tag wt ON w.id = wt.wid
+        JOIN tag t ON t.id = wt.tid
+        WHERE t.tag IN
+        <foreach collection="tags" item="tag" open="(" close=")" separator=",">
+            #{tag}
+        </foreach>
+        GROUP BY w.id
+        HAVING COUNT(DISTINCT t.id) = #{size}
+        ) AS subquery
+        JOIN website w ON w.id = subquery.id
+        ORDER BY w.id
+        LIMIT #{pageSize} OFFSET #{pageNum}
+    </select>
+    <select id="getByUrl" resultType="com.favorites.entity.Website">
+        select w.id
+        from website w
+        where url = #{url}
+    </select>
+    <select id="listAll" resultType="com.favorites.entity.Website">
+        select w.url, w.title
+        from website w
+    </select>
+    <select id="listByKeywords" resultType="com.favorites.entity.Website">
+        select w.id, url, title, type
+        from website w
+        where w.title
+        <if test="keywords != null and keywords != ''">
+            <bind name="nickname" value="'%'+nickname+'%'"/>
+            like #{nickname}
+        </if>
+    </select>
+
+    <insert id="saveWebsites">
+        INSERT IGNORE INTO website (url, title)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.url},#{item.title})
+        </foreach>
+    </insert>
+
+    <insert id="saveWebsite" useGeneratedKeys="true" keyProperty="id">
+        insert ignore into website (url, title, type)
+        values (#{url}, #{title}, #{type})
+
+    </insert>
+
+    <update id="updateBatchById">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update website
+            <set>
+                <if test="item.url != null and item.url != ''">url=#{item.url},</if>
+                <if test="item.title != null and item.title != ''">title=#{item.title},</if>
+                <if test="item.type != null and item.type != ''">type=#{item.type}</if>
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+
+</mapper>

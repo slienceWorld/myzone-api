@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.commons.config.aop.aspect.WebLogAspect
+
+

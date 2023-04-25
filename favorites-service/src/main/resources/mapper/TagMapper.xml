@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.favorites.mapper.TagMapper">
+
+    <resultMap id="BaseResultMap" type="com.favorites.entity.Tag">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="tag" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,tag
+    </sql>
+    <insert id="saveTags">
+        insert into tag (tag)
+        values
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </insert>
+    <select id="listIdsByName" resultType="java.lang.Long">
+        select t.id from tag t where t.tag in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+</mapper>
