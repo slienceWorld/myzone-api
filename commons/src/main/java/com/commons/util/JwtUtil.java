@@ -1,10 +1,8 @@
 package com.commons.util;
 
-import com.commons.config.YamlPropertySourceFactory;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -16,7 +14,6 @@ import java.util.Date;
  */
 @Slf4j
 @Component
-//@PropertySource(value = "classpath:application.yml", factory = YamlPropertySourceFactory.class, encoding = "UTF-8")
 public class JwtUtil {
 
     public static void main(String[] args) {
