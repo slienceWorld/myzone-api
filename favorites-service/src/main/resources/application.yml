@@ -1,28 +1,9 @@
-
 server:
   port: 8001
 
 spring:
-  application:
-    name: favorites-service
-  datasource:
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://124.221.194.98:3307/myzone?characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true
-    url: jdbc:mysql://localhost:3306/myzone?characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true
-
-    hikari:
-      max-lifetime: 50000
   redis:
     host: 124.221.194.98
     port: 6380
     password: aurora123
 
-  cloud:
-    nacos:
-      server-addr: 124.221.194.98:8848
-
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

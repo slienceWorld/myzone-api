@@ -13,7 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@MapperScan("com.favorites.mapper")
+@MapperScan({"com.favorites.mapper","com.commons.mapper"})
 public class FavoritesApplication {
     public static void main(String[] args) {
         SpringApplication.run(FavoritesApplication.class, args);

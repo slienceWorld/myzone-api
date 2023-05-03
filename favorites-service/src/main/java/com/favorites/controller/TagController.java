@@ -6,6 +6,7 @@ import com.favorites.dto.TagDto;
 import com.favorites.entity.Tag;
 import com.favorites.service.TagService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import java.util.List;
  * @description
  */
 @RestController
+@RequestMapping("/tag")
 public class TagController {
     @Resource
     private TagService tagService;

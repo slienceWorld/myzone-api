@@ -33,19 +33,24 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestController
+@RequestMapping("/web")
 public class WebsiteController {
 
     @Resource
     private WebsiteService websiteService;
 
-
     @Resource
     private HttpServletResponse response;
 
-    @RequestMapping("test")
+    @RequestMapping("/test")
     public String test(@RequestBody WebsiteDto websiteDto) {
         Website website = BeanUtil.copyProperties(websiteDto, Website.class);
         websiteService.save(website);
+        return "test";
+    }
+
+    @RequestMapping("/test2")
+    public String test2() {
         return "test";
     }
 

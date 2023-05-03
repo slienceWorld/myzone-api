@@ -1,32 +1,6 @@
 server:
   port: 8002
-
-
-spring:
-  application:
-    name: media-service
-  profiles:
-    include: jwt
-  datasource:
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/myzone?characterEncoding=UTF-8&useSSL=false
-    hikari:
-      max-lifetime: 50000
-
-
-  main:
-    allow-circular-references: true
-    allow-bean-definition-overriding: true
-  cloud:
-    nacos:
-      server-addr: 124.221.194.98:8848
   servlet:
     multipart:
       max-file-size: 50MB
       max-request-size: 50MB
-
-
-
-

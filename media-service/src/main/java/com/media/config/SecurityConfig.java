@@ -1,6 +1,7 @@
 package com.media.config;
 
 import com.commons.config.security.*;
+import com.commons.filter.ServerProtectFilter;
 import com.commons.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,7 @@ import javax.annotation.Resource;
  * @date 2022/12/11 17:42
  */
 @ComponentScan(basePackages = "com.commons.config.security",
-        basePackageClasses = UserDetailsServiceImpl.class)
+        basePackageClasses = {UserDetailsServiceImpl.class})
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -54,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private JwtSecurityFilter jwtSecurityFilter;
 
-    @Bean
+
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -79,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .addFilterBefore(jwtSecurityFilter, UsernamePasswordAuthenticationFilter.class)
-//                .addFilterBefore(new ServerProtectFilter(), JwtSecurityFilter.class)
+                .addFilterBefore(new ServerProtectFilter(), JwtSecurityFilter.class)
                 .authorizeRequests()
                 .antMatchers("/doLogin").permitAll()
                 .anyRequest().authenticated()

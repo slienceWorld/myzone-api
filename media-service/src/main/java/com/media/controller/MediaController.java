@@ -57,13 +57,16 @@ public class MediaController {
         return Result.success("test");
     }
 
+    @WebLog(description = "要权限的测试")
+    @RequestMapping("/test2")
+    public Result test2() {
+        return Result.success("test2");
+    }
 
     @GetMapping("/videoPlayer")
     public void getVideoResource(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-
         Path path = Paths.get(URL + separator + "111.mp4");
-
         if (Files.exists(path)) {
             String mimeType = Files.probeContentType(path);
             if (!StrUtil.isEmpty(mimeType)) {
@@ -91,11 +94,12 @@ public class MediaController {
         }
     }
 
-    @PostMapping("/upload")
+    @PostMapping("/uploadMusic")
     public Result uploadMusic(@RequestParam("file") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
 
             String originalFileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+            String fileName=originalFileName.substring(0,originalFileName.lastIndexOf('.'));
             String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
 
             List<String> supportedExtensions = Arrays.asList("mp3", "wav", "flac");
@@ -111,7 +115,11 @@ public class MediaController {
             try (InputStream is = file.getInputStream()) {
                 Files.copy(is, filePath, StandardCopyOption.REPLACE_EXISTING);
             }
-
+            Media media = new Media();
+            media.setFileName(fileName);
+            media.setType(2);
+            media.setUrl(filePath.toString());
+            mediaService.save(media);
             return Result.success("文件上传成功");
         } else {
             return Result.fail("上传文件不存在");

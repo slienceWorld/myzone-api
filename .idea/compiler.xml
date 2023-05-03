@@ -8,12 +8,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="favorites-service" />
         <module name="auth-service" />
-        <module name="commons" />
         <module name="gateway-service" />
-        <module name="gateway" />
         <module name="media-service" />
+        <module name="favorites-service" />
+        <module name="chat-service" />
+        <module name="commons" />
+        <module name="gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
@@ -27,6 +28,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="auth-service" options="-parameters" />
       <module name="bookmark-server" options="-parameters" />
+      <module name="chat-service" options="-parameters" />
       <module name="commons" options="-parameters" />
       <module name="favorites-service" options="-parameters" />
       <module name="gateway" options="-parameters" />

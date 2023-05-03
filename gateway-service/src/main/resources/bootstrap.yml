@@ -1,0 +1,14 @@
+
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    nacos:
+      server-addr: 124.221.194.98:8848
+      config:
+        server-addr: 124.221.194.98:8848
+        group: DEFAULT_GROUP
+        file-extension: yaml
+        prefix: ${spring.application.name}
+        namespace: public

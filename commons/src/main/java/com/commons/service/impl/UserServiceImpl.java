@@ -42,7 +42,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public User getUserByName(String username) {
-        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper();
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(User::getUsername, username);
         return this.getOne(lambdaQueryWrapper);
     }

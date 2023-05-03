@@ -14,6 +14,7 @@
         <module>gateway-service</module>
         <module>favorites-service</module>
         <module>media-service</module>
+        <module>chat-service</module>
     </modules>
 
     <properties>
