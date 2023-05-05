@@ -1,0 +1,27 @@
+server:
+  port: 8003
+
+spring:
+  application:
+    name: chat-service
+  rabbitmq:
+    host: 124.221.194.98
+    port: 5672
+    username: admin
+    password: 12345
+    virtual-host: /dev
+    # 开启消息发送确认
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+#  redis:
+#    host: 124.221.194.98
+#    port: 6380
+#    password: aurora123
+
+
+  cloud:
+    nacos:
+      server-addr: 124.221.194.98:8848

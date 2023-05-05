@@ -32,10 +32,12 @@ public class ServerProtectFilter implements Filter {
 
         String value = httpRequest.getHeader(CloudConstant.GATEWAY_HEADER_KEY);
         String gateway = new String(Base64Utils.encode(CloudConstant.GATEWAY_HEADER_VALUE.getBytes()));
+
         if (StrUtil.equals(value, gateway) && value != null) {
-            log.info("==========>>通过网关");
+            log.info("==========>>网关验证成功！");
             filterChain.doFilter(request, response);
         } else {
+
             log.error("==========>>{} 不能绕过网关访问！", uri);
             Result fail = Result.fail(HttpStatus.HTTP_BAD_GATEWAY, "请通过网关访问");
             WebUtil.returnResult((HttpServletResponse) response, fail);
