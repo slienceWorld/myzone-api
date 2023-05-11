@@ -4,23 +4,21 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
-
 /**
- * 
  * @TableName user
  */
-@TableName(value ="user")
+@TableName(value = "user")
 @Data
 public class User implements Serializable {
     /**
-     * 
+     *
      */
     @TableId(type = IdType.AUTO)
     private Long id;
@@ -36,6 +34,11 @@ public class User implements Serializable {
      */
     @NotBlank(message = "密码不能为空！")
     private String password;
+
+    /**
+     * 简介
+     */
+    private String introduction;
 
     /**
      * 昵称
@@ -73,13 +76,13 @@ public class User implements Serializable {
     private Integer locked;
 
     /**
-     * 
+     *
      */
     @TableField("create_time")
     private Date createTime;
 
     /**
-     * 
+     *
      */
     @TableField("update_time")
     private Date updateTime;

@@ -1,3 +1,0 @@
-jwt:
-  expire-time: 3600
-  secret: aurora

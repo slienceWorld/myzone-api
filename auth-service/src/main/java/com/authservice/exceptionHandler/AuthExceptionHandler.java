@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 
 @RestControllerAdvice
-@ComponentScan(basePackages = "com.commons.exceptionHandler")
+@ComponentScan(basePackages = "com.commons.exception.handler")
 public class AuthExceptionHandler {
 
 }

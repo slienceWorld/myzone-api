@@ -1,25 +1,33 @@
 package com.favorites.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.commons.exception.DuplicateDataException;
+import com.commons.util.BeanUtil;
 import com.favorites.dto.WebsiteDto;
+import com.favorites.entity.Tag;
 import com.favorites.entity.Website;
+import com.favorites.entity.WebsiteTag;
 import com.favorites.mapper.TagMapper;
 import com.favorites.mapper.WebsiteMapper;
 import com.favorites.mapper.WebsiteTagMapper;
+import com.favorites.service.TagService;
 import com.favorites.service.WebsiteService;
+import com.favorites.vo.WebsiteVo;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.BuilderException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author DELL
@@ -38,10 +46,14 @@ public class WebsiteServiceImpl extends ServiceImpl<WebsiteMapper, Website>
     private TagMapper tagMapper;
 
     @Resource
+    private TagService tagService;
+
+    @Resource
     private WebsiteTagMapper websiteTagMapper;
 
     @Resource
     private PlatformTransactionManager transactionManager;
+
 
     @Override
     public List<Website> getByPage(int pageBegin, int pageSize) {
@@ -54,8 +66,18 @@ public class WebsiteServiceImpl extends ServiceImpl<WebsiteMapper, Website>
     }
 
     @Override
+    @Transactional
     public void saveWebsites(List<WebsiteDto> list) {
         websiteMapper.saveWebsites(list);
+
+        List<Tag> tags = tagService.list();
+
+        for (WebsiteDto w : list) {
+            List<Tag> webTags = tags.stream().filter(tag -> w.getTitle().contains(tag.getName())).collect(Collectors.toList());
+            for (Tag tag : webTags) {
+                websiteTagMapper.insert(new WebsiteTag(w.getId(), tag.getId()));
+            }
+        }
     }
 
     @Override
@@ -68,7 +90,8 @@ public class WebsiteServiceImpl extends ServiceImpl<WebsiteMapper, Website>
     public boolean insertSingleWebsite(WebsiteDto websiteDto) {
         TransactionStatus transaction = transactionManager.getTransaction(new DefaultTransactionDefinition());
 
-        Website website = BeanUtil.copyProperties(websiteDto, Website.class);
+        Website website = new Website();
+        BeanUtils.copyProperties(websiteDto, website);
         try {
             Website byUrl = websiteMapper.getByUrl(website.getUrl());
             if (ObjectUtil.isNotNull(byUrl)) {
@@ -99,6 +122,13 @@ public class WebsiteServiceImpl extends ServiceImpl<WebsiteMapper, Website>
         return websiteMapper.listByKeywords(keywords);
     }
 
+
+    @Override
+    @SneakyThrows
+    public List<WebsiteVo> getByTypeAndPage(String type, int pageNum, int pageSize) {
+        List<Website> websites = websiteMapper.getByTypeAndPage(type, pageNum * pageSize, pageSize);
+        return BeanUtil.convert(websites, WebsiteVo.class);
+    }
 
 }
 

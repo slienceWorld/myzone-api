@@ -2,13 +2,15 @@ package com.favorites.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.excel.EasyExcelFactory;
+import com.commons.config.aop.annotation.CheckParam;
 import com.commons.config.aop.annotation.WebLog;
 import com.commons.vo.Result;
+import com.favorites.vo.WebsiteVo;
+import com.favorites.config.excel.ExcelListener;
 import com.favorites.dto.PageDto;
 import com.favorites.dto.WebsiteDto;
 import com.favorites.dto.WebsiteExcelDto;
 import com.favorites.entity.Website;
-import com.favorites.listener.ExcelListener;
 import com.favorites.service.WebsiteService;
 import com.favorites.util.EasyExcelUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -42,16 +44,11 @@ public class WebsiteController {
     @Resource
     private HttpServletResponse response;
 
-    @RequestMapping("/test")
-    public String test(@RequestBody WebsiteDto websiteDto) {
-        Website website = BeanUtil.copyProperties(websiteDto, Website.class);
-        websiteService.save(website);
-        return "test";
-    }
 
-    @RequestMapping("/test2")
-    public String test2() {
-        return "test";
+    @RequestMapping("/test")
+    public String test2(@RequestBody List<WebsiteDto> list) {
+        websiteService.saveWebsites(list);
+        return "111";
     }
 
     @WebLog(description = "分页查找网址")
@@ -61,7 +58,7 @@ public class WebsiteController {
         return Result.success(websites);
     }
 
-    @WebLog(description = "根据标签查找网址")
+    @WebLog(description = "根据类型标签分页查找网址")
     @GetMapping("/getByTags")
     public Result getByTags(@Validated PageDto pageDto,
                             @RequestParam("tags") List<String> tags) {
@@ -142,9 +139,17 @@ public class WebsiteController {
 
     @WebLog(description = "关键字查询")
     @GetMapping("/getByKeywords")
-    public Result getByKeywords(@RequestParam("keywords") String keywords){
+    public Result getByKeywords(@RequestParam("keywords") String keywords) {
         List<Website> list = websiteService.getByKeywords(keywords);
         return Result.success(list);
     }
 
+    @WebLog(description = "根据类型分页查找网址")
+    @GetMapping("/getByTypeAndPage")
+    public Result getByType( @CheckParam({"前端","后端"}) String type,
+                            PageDto pageDto) {
+
+        List<WebsiteVo> list = websiteService.getByTypeAndPage(type, pageDto.getPageNum(), pageDto.getPageSize());
+        return Result.success(list);
+    }
 }

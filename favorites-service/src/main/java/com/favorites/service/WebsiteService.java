@@ -1,6 +1,7 @@
 package com.favorites.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.favorites.vo.WebsiteVo;
 import com.favorites.dto.WebsiteDto;
 import com.favorites.entity.Website;
 
@@ -26,4 +27,7 @@ public interface WebsiteService extends IService<Website> {
     List<Website> listAll();
 
     List<Website> getByKeywords(String keywords);
+
+
+    List<WebsiteVo> getByTypeAndPage(String type, int pageNum, int pageSize);
 }

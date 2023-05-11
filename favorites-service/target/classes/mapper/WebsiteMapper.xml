@@ -61,8 +61,15 @@
             like #{nickname}
         </if>
     </select>
+    <select id="getByTypeAndPage" resultType="com.favorites.entity.Website">
+        select id, url, title, create_time
+        from website w
+        where type = #{type}
+        LIMIT #{pageSize} OFFSET #{pageNum}
 
-    <insert id="saveWebsites">
+    </select>
+
+    <insert id="saveWebsites" keyProperty="id" useGeneratedKeys="true">
         INSERT IGNORE INTO website (url, title)
         VALUES
         <foreach collection="list" item="item" separator=",">

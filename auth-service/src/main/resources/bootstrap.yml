@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: auth-service
+  cloud:
+    nacos:
+      discovery:
+        group: DEFAULT_GROUP
+      server-addr: 124.221.194.98:8848
+      config:
+        server-addr: 124.221.194.98:8848
+        namespace: public
+        file-extension: yaml
+        extension-configs:
+          - dataId: jwt-config.yaml
+            group: ${spring.cloud.nacos.discovery.group}
+            refresh: true
+          - dataId: datasource-config.yaml
+            group: ${spring.cloud.nacos.discovery.group}
+            refresh: true
+
+
+
+

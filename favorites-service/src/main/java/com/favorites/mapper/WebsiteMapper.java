@@ -29,6 +29,8 @@ public interface WebsiteMapper extends BaseMapper<Website> {
    List<Website> listAll();
 
     List<Website> listByKeywords(String keywords);
+
+    List<Website> getByTypeAndPage(String type, int pageNum, int pageSize);
 }
 
 

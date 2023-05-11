@@ -10,7 +10,8 @@
     {
       "name": "cloud.safe.only-access-by-gateway",
       "type": "java.lang.Boolean",
-      "sourceType": "com.commons.property.CloudSecurityProperty"
+      "sourceType": "com.commons.property.CloudSecurityProperty",
+      "defaultValue": true
     }
   ],
   "hints": []

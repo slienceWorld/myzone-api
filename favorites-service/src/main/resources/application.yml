@@ -6,4 +6,10 @@ spring:
     host: 124.221.194.98
     port: 6380
     password: aurora123
+  elasticsearch:
+    uris: http://124.221.194.98:9200
 
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

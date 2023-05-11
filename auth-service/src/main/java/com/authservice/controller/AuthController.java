@@ -1,12 +1,14 @@
 package com.authservice.controller;
 
+import com.commons.config.aop.annotation.WebLog;
 import com.commons.dto.LoginUserDto;
 import com.commons.service.LoginService;
 import com.commons.util.JwtUtil;
-import com.commons.config.aop.annotation.WebLog;
 import com.commons.vo.Result;
+import com.commons.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,9 +46,10 @@ public class AuthController {
 
     @WebLog(description = "登录接口")
     @PostMapping("/doLogin")
-    public Result login(LoginUserDto user) {
-        String jwtToken = loginService.login(user.getUsername(), user.getPassword());
-        return Result.success(200, "登录成功", jwtToken);
+    public Result login(@RequestBody LoginUserDto user) {
+        UserVo userVo = loginService.login(user.getUsername(), user.getPassword());
+
+        return Result.success(200, "登录成功", userVo);
     }
 
     @WebLog(description = "是否过期")

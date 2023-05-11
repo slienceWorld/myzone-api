@@ -5,16 +5,20 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
  * 
  * @TableName website_tag
  */
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName(value ="website_tag")
 @Data
-@Accessors(chain = true)
 public class WebsiteTag implements Serializable {
     /**
      * 
@@ -36,4 +40,9 @@ public class WebsiteTag implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    public WebsiteTag(Long wid, Long tid) {
+        this.wid = wid;
+        this.tid = tid;
+    }
 }

@@ -6,6 +6,7 @@ import com.commons.util.JwtUtil;
 import com.commons.util.RedisUtil;
 import com.commons.util.WebUtil;
 import com.commons.vo.Result;
+import com.commons.vo.UserVo;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;

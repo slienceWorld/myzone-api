@@ -5,8 +5,8 @@
 <mapper namespace="com.favorites.mapper.TagMapper">
 
     <resultMap id="BaseResultMap" type="com.favorites.entity.Tag">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="name" column="tag" jdbcType="VARCHAR"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="tag" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -25,4 +25,5 @@
             #{item}
         </foreach>
     </select>
+
 </mapper>

@@ -1,5 +1,7 @@
 package com.favorites.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.favorites.config.jackson.StringToLongDeserializer;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -14,6 +16,7 @@ import java.util.List;
 @Data
 public class WebsiteDto {
 
+    @JsonDeserialize(using = StringToLongDeserializer.class)
     private Long id;
 
     @NotNull(message = "url不能为空")
