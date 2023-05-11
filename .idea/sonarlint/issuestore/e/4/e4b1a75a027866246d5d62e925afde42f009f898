@@ -1,0 +1,7 @@
+
+o
+java:S3008#"YRename this field "WEB_SOCKET_SET" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(å‰ÏÏ
+J
+java:S2864P"4Iterate over the "entrySet" instead of the "keySet".(¼„¬È
+N
+java:S1117P"8Rename "name" which hides the field declared at line 31.(¼„¬È

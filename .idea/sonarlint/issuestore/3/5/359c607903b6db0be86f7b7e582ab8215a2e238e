@@ -1,0 +1,5 @@
+
+∂
+java:S4449p"üAnnotate the parameter with @javax.annotation.Nullable in method 'registerCorsConfiguration' declaration, or make sure that null can not be passed as argument.(Ñó‚Ë
+ó
+java:S1186j"ÄAdd a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ìñ…å
